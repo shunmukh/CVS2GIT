@@ -1,0 +1,286 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2018.12.13.19.25.48;	author mukesh;	state Exp;
+branches;
+next	1.1;
+commitid	4vrIXkQ6AfGSMF3B;
+
+1.1
+date	2018.12.13.19.21.48;	author mukesh;	state Exp;
+branches;
+next	;
+commitid	372a1rDlAaCvLF3B;
+
+
+desc
+@@
+
+
+1.2
+log
+@The message to log with this change 2
+@
+text
+@<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Hello There</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1671.1">
+  <style type="text/css">
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li1 {margin: 0.0px 0.0px 14.9px 0.0px; line-height: 22.0px; font: 18.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li2 {margin: 0.0px 0.0px 21.0px 0.0px; line-height: 10.0px; font: 9.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    span.s1 {-webkit-text-stroke: 0px #000000}
+    span.s2 {font-kerning: none}
+    span.s3 {font-kerning: none; background-color: #b3b3b3}
+    span.s4 {font: 14.0px Times; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    ol.ol1 {list-style-type: decimal}
+  </style>
+</head>
+<body>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b></b></span><span class="s2"><b>Code Cafe<br>
+</b></span></li>
+  <li class="li2"><span class="s1"><b></b></span><span class="s2"><b>-code hub with stats<br>
+</b></span></li>
+</ol>
+<p class="p3"><span class="s2">Panel heading without title</span></p>
+<p class="p3"><span class="s2">Panel content<span class="Apple-converted-space"> </span></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 13.0px; font: 11.0px '.SF NS Text'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)"><span class="s3">Go!</span><span class="s4"><b><span class="Apple-converted-space"> </span></b></span></h3>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>{{x.title}}</b></span></h3>
+<ol class="ol1">
+  <li class="li3"><span class="s1"></span><span class="s2">{{x.compiler_status}}</span></li>
+  <li class="li3"><span class="s1"></span><span class="s2">{{x.language}} hey</span></li>
+  <li class="li3"><span class="s2">{{x.source_code}}<span class="Apple-converted-space"> </span></span></li>
+</ol>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>Filter By Status</b></span></h3>
+<p class="p3"><span class="s2">Accepted<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Skipped<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Memory<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Runtime<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Wrong Answer<span class="Apple-converted-space"> </span></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>Statistical Analysis</b></span></h3>
+<p class="p3"><span class="s2">Panel content<span class="Apple-converted-space"> </span></span></p>
+</body>
+</html>
+@
+
+
+1.1
+log
+@The message to log with this change
+@
+text
+@d1 19
+a19 110
+<!DOCTYPE html>
+<html ng-app="codeCafe" >
+<head >
+<meta charset="UTF-8">
+<title>Hello There</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+var app = angular.module('codeCafe',[]);
+app.controller('cafeCtrl', function($scope, $http) {
+	
+	  $http.get("http://hackerearth.0x10.info/api/ctz_coders?type=json&query=list_submissions").then(function (response) {
+	      $scope.myData = response.data.websites;
+	     
+	  });
+	  $scope.myFunction = function() {
+		
+		  var request = window.indexedDB.open("codeCafe",23);
+		  request.onerror = function(event) {
+		  	alert(" something with request.errorCode!"+event.target.errorCode);
+		  	};
+		  	request.onsuccess = function(event) {
+		  	 db = event.target.result;
+		  var objectStore =  db.transaction("submissi").objectStore("submissi");
+		 
+	       var index = objectStore.index("language");
+
+	       index.getAll($scope.search,60).onsuccess = function(event) {
+		       
+	        $scope.myData = event.target.result;
+	       };
+
+	       
+	       
+	    };
+	  };
+	});
+
+
+if(window.indexedDB){
+	alert("sucess");
+}
+
+
+var db;
+var request = window.indexedDB.open("codeCafe",23);
+request.onerror = function(event) {
+	alert(" something with request.errorCode!"+event.target.errorCode);
+	};
+	request.onsuccess = function(event) {
+	 db = event.target.result;
+
+
+		     var xhr = new XMLHttpRequest();
+			    xhr.open('GET', "http://hackerearth.0x10.info/api/ctz_coders?type=json&query=list_submissions", true);
+			    console.log("Blob:");
+			    xhr.responseType="json";
+			    var blob;
+			    xhr.onload = function (evt) {
+			      if (xhr.status == 200) {
+			        console.log("Blob retrieved");
+			        blob = xhr.response;
+			        console.log("Blob:", blob);
+			        var myData = blob;
+				     for(var i in myData.websites){
+				    	 var objectStore =  db.transaction("submissi","readwrite").objectStore("submissi");
+                         objectStore.add(myData.websites[i]);
+
+						     }
+					    
+					     
+				     
+			      } else {
+			        console.error(" error:",
+			        xhr.responseText, xhr.status);
+			      }
+			    };
+			    xhr.send();
+			  
+            
+            
+	};
+
+	request.onupgradeneeded = function(event){
+		alert("oncompleted");
+		 db = event.target.result;
+		 var objectStore = db.createObjectStore("submissi", { keyPath: "id" });
+	     objectStore.createIndex("title","title",{unique:false});
+	     objectStore.createIndex("source","source_code",{unique:false});
+	     objectStore.createIndex("metadata","metadata",{unique:false});
+	     objectStore.createIndex("status","compiler_status",{unique:false});
+	     objectStore.createIndex("language","language",{unique:false});
+	    
+		 objectStore.transaction.oncomplete = function(event) {
+			  // Do something with the request.result!
+			  alert("Transaction completed " + request.result.name);
+              
+
+
+			  
+			};
+
+		}
+			 
+
+	
+</script>
+
+d21 6
+a26 38
+<body ng-controller="cafeCtrl">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+   <ol class="breadcrumb">
+     <li><h1>Code Cafe</h1></li>
+     <li><h6>-code hub with stats</h6></li>
+   </ol>
+  </div>
+</nav>
+<div class="panel panel-default">
+  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+<div class="row">
+<div class="col-sm-8"  >
+<div class="panel panel-default">
+  <div class="panel-heading"  >
+    <h3 class="panel-title">
+      <input type="text" class="form-control" ng-model="search" placeholder="Search based on Title /level/language">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="myFunction()">Go!</button>
+      </span>
+    </h3>
+  </div>
+</div>
+
+
+ <div  style="height:370px;overflow:scroll;">
+<div class="panel panel-default" ng-show="{{x.compiler_status}}"  ng-repeat="x in myData" >
+  <div class="panel-heading" >
+    <h3 class="panel-title">{{x.title}}</h3>
+  </div>
+  <div class="panel-body">
+  <ol class="breadcrumb">
+  <li>{{x.compiler_status}}</li>
+  <li>{{x.language}}</li>
+d28 17
+a44 45
+  
+    {{x.source_code}}
+     
+  
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="col-sm-4">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Filter By Status</h3>
+  </div>
+  <div class="panel-body">
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="Accepted" >Accepted</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="Skipped"> Skipped</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox" ng-model="Memory">Memory</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox"  ng-model="Runtime">Runtime</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox" ng-model="Wrong Answer">Wrong Answer</label>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Statistical Analysis</h3>
+  </div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+</div>
+</div>
+d46 1
+a46 1
+</html>@
+

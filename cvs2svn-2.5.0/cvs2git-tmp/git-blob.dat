@@ -1,0 +1,791 @@
+blob
+mark :1
+data 495
+# The "checkoutlist" file is used to support additional version controlled
+# administrative files in $CVSROOT/CVSROOT, such as template files.
+#
+# The first entry on a line is a filename which will be checked out from
+# the corresponding RCS file in the $CVSROOT/CVSROOT directory.
+# The remainder of the line is an error message to use if the file cannot
+# be checked out.
+#
+# File format:
+#
+#	[<whitespace>]<filename>[<whitespace><error message>]<end-of-line>
+#
+# comment lines begin with '#'
+
+blob
+mark :2
+data 1232
+# The "commitinfo" file is used to control pre-commit checks.
+# The filter on the right is invoked with the repository and a list 
+# of files to check.  A non-zero exit of the filter program will 
+# cause the commit to be aborted.
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# Format strings present in the filter will be replaced as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#    %{s} = file name, file name, ...
+#
+# If no format strings are present in the filter string, a default of
+# " %r %s" will be appended to the filter string, but this usage is
+# deprecated.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :3
+data 4082
+# Set `SystemAuth' to `no' if pserver shouldn't check system users/passwords.
+#SystemAuth=no
+
+# Set `LocalKeyword' to specify a local alias for a standard keyword.
+#LocalKeyword=MYCVS=CVSHeader
+
+# Set `KeywordExpand' to `i' followed by a list of keywords to expand or
+# `e' followed by a list of keywords to not expand.
+#KeywordExpand=iMYCVS,Name,Date
+#KeywordExpand=eCVSHeader
+
+# Set `TopLevelAdmin' to `yes' to create a CVS directory at the top
+# level of the new working directory when using the `cvs checkout'
+# command.
+#TopLevelAdmin=no
+
+# Put CVS lock files in this directory rather than directly in the repository.
+#LockDir=/var/lock/cvs
+
+# Set `LogHistory' to `all' or `TOEFWUPCGMAR' to log all transactions to the
+# history file, or a subset as needed (ie `TMAR' logs all write operations)
+#LogHistory=TOEFWUPCGMAR
+
+# Set `RereadLogAfterVerify' to `always' (the default) to allow the verifymsg
+# script to change the log message.  Set it to `stat' to force CVS to verify
+# that the file has changed before reading it (this can take up to an extra
+# second per directory being committed, so it is not recommended for large
+# repositories.  Set it to `never' (the previous CVS behavior) to prevent
+# verifymsg scripts from changing the log message.
+#RereadLogAfterVerify=always
+
+# Set `UserAdminOptions' to the list of `cvs admin' commands (options)
+# that users not in the `cvsadmin' group are allowed to run.  This
+# defaults to `k', or only allowing the changing of the default
+# keyword expansion mode for files for users not in the `cvsadmin' group.
+# This value is ignored if the `cvsadmin' group does not exist.
+#
+# The following string would enable all `cvs admin' commands for all
+# users:
+#UserAdminOptions=aAbceIklLmnNostuU
+
+# Set `UseNewInfoFmtStrings' to `no' if you must support a legacy system by
+# enabling the deprecated old style info file command line format strings.
+# Be warned that these strings could be disabled in any new version of CVS.
+UseNewInfoFmtStrings=yes
+
+# Set `ImportNewFilesToVendorBranchOnly' to `yes' if you wish to force
+# every `cvs import' command to behave as if the `-X' flag was
+# specified.
+#ImportNewFilesToVendorBranchOnly=no
+
+# Set `PrimaryServer' to the CVSROOT to the primary, or write, server when
+# establishing one or more read-only mirrors which serve as proxies for
+# the write server in write mode or redirect the client to the primary for
+# write requests.
+#
+# For example:
+#
+#   PrimaryServer=:fork:localhost/cvsroot
+
+# Set `MaxProxyBufferSize' to the the maximum allowable secondary
+# buffer memory cache size before the buffer begins being stored to disk, in
+# bytes.  Must be a positive integer but may end in `k', `M', `G', or `T' (for
+# kiilo, mega, giga, & tera, respectively).  If an otherwise valid number you
+# specify is greater than the SIZE_MAX defined by your system's C compiler,
+# then it will be resolved to SIZE_MAX without a warning.  Defaults to 8M (8
+# megabytes).
+#
+# High values for MaxProxyBufferSize may speed up a secondary server
+# with old hardware and a lot of available memory but can actually slow a
+# modern system down slightly.
+#
+# For example:
+#
+#   MaxProxyBufferSize=1G
+
+# Set `MaxCommentLeaderLength' to the maximum length permitted for the
+# automagically determined comment leader used when expanding the Log
+# keyword, in bytes.  CVS's behavior when the automagically determined
+# comment leader exceeds this length is dependant on the value of
+# `UseArchiveCommentLeader' set in this file.  `unlimited' is a valid
+# setting for this value.  Defaults to 20 bytes.
+#
+# For example:
+#
+#   MaxCommentLeaderLength=20
+
+# Set `UseArchiveCommentLeader' to `yes' to cause CVS to fall back on
+# the comment leader set in the RCS archive file, if any, when the
+# automagically determined comment leader exceeds `MaxCommentLeaderLength'
+# bytes.  If `UseArchiveCommentLeader' is not set and a comment leader
+# greater than `MaxCommentLeaderLength' is calculated, the Log keyword
+# being examined will not be expanded.  Defaults to `no'.
+#
+# For example:
+#
+#   UseArchiveCommentLeader=no
+
+blob
+mark :4
+data 602
+# This file affects handling of files based on their names.
+#
+# The -m option specifies whether CVS attempts to merge files.
+#
+# The -k option specifies keyword expansion (e.g. -kb for binary).
+#
+# Format of wrapper file ($CVSROOT/CVSROOT/cvswrappers or .cvswrappers)
+#
+#  wildcard	[option value][option value]...
+#
+#  where option is one of
+#  -f		from cvs filter		value: path to filter
+#  -t		to cvs filter		value: path to filter
+#  -m		update methodology	value: MERGE or COPY
+#  -k		expansion mode		value: b, o, kkv, &c
+#
+#  and value is a single-quote delimited value.
+# For example:
+#*.gif -k 'b'
+
+blob
+mark :5
+data 1872
+# The "loginfo" file controls where "cvs commit" log information is
+# sent. The first entry on a line is a regular expression which must
+# match the directory that the change is being made to, relative to the
+# $CVSROOT.  If a match is found, then the remainder of the line is a
+# filter program that should expect log information on its standard input.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name ALL appears as a regular expression it is always used
+# in addition to the first matching regex or DEFAULT.
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#    %{sVv} = attribute list = file name, old version number (pre-checkin),
+#           new version number (post-checkin).  When either old or new revision
+#           is unknown, doesn't exist, or isn't applicable, the string "NONE"
+#           will be placed on the command line instead.
+#
+# Note that %{sVv} is a list operator and not all elements are necessary.
+# Thus %{sv} is a legal format string, but will only be replaced with
+# file name and new revision.
+# It also generates multiple arguments for each file being operated upon.
+# That is, if two files, file1 & file2, are being commited from 1.1 to
+# version 1.1.2.1 and from 1.1.2.2 to 1.1.2.3, respectively, %{sVv} will
+# generate the following six arguments in this order:
+# file1, 1.1, 1.1.2.1, file2, 1.1.2.2, 1.1.2.3.
+#
+# For example:
+#DEFAULT (echo ""; id; echo %s; date; cat) >> $CVSROOT/CVSROOT/commitlog
+# or
+#DEFAULT (echo ""; id; echo %{sVv}; date; cat) >> $CVSROOT/CVSROOT/commitlog
+
+blob
+mark :6
+data 1151
+# Three different line formats are valid:
+#	key	-a    aliases...
+#	key [options] directory
+#	key [options] directory files...
+#
+# Where "options" are composed of:
+#	-i prog		Run "prog" on "cvs commit" from top-level of module.
+#	-o prog		Run "prog" on "cvs checkout" of module.
+#	-e prog		Run "prog" on "cvs export" of module.
+#	-t prog		Run "prog" on "cvs rtag" of module.
+#	-u prog		Run "prog" on "cvs update" of module.
+#	-d dir		Place module in directory "dir" instead of module name.
+#	-l		Top-level directory only -- do not recurse.
+#
+# NOTE:  If you change any of the "Run" options above, you'll have to
+# release and re-checkout any working directories of these modules.
+#
+# And "directory" is a path to a directory relative to $CVSROOT.
+#
+# The "-a" option specifies an alias.  An alias is interpreted as if
+# everything on the right of the "-a" had been typed on the command line.
+#
+# You can encode a module within a module by using the special '&'
+# character to interpose another module into the current module.  This
+# can be useful for creating a module that consists of many directories
+# spread out over the entire source repository.
+
+blob
+mark :7
+data 1170
+# Three different line formats are valid:
+#	key	-a    aliases...
+#	key [options] directory
+#	key [options] directory files...
+#
+# Where "options" are composed of:
+#	-i prog		Run "prog" on "cvs commit" from top-level of module.
+#	-o prog		Run "prog" on "cvs checkout" of module.
+#	-e prog		Run "prog" on "cvs export" of module.
+#	-t prog		Run "prog" on "cvs rtag" of module.
+#	-u prog		Run "prog" on "cvs update" of module.
+#	-d dir		Place module in directory "dir" instead of module name.
+#	-l		Top-level directory only -- do not recurse.
+#
+# NOTE:  If you change any of the "Run" options above, you'll have to
+# release and re-checkout any working directories of these modules.
+#
+# And "directory" is a path to a directory relative to $CVSROOT.
+#
+# The "-a" option specifies an alias.  An alias is interpreted as if
+# everything on the right of the "-a" had been typed on the command line.
+#
+# You can encode a module within a module by using the special '&'
+# character to interpose another module into the current module.  This
+# can be useful for creating a module that consists of many directories
+# spread out over the entire source repository.
+
+project_name Proj
+
+blob
+mark :8
+data 876
+# The "notify" file controls where notifications from watches set by
+# "cvs watch add" or "cvs edit" are sent.  The first entry on a line is
+# a regular expression which is tested against the directory that the
+# change is being made to, relative to the $CVSROOT.  If it matches,
+# then the remainder of the line is a filter program that should contain
+# one occurrence of %s for the user to notify, and information on its
+# standard input.
+#
+# "ALL" or "DEFAULT" can be used in place of the regular expression.
+#
+# format strings are replaceed as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#    %s = user to notify
+#
+# For example:
+#ALL (echo Committed to %r/%p; cat) |mail %s -s "CVS notification"
+
+blob
+mark :9
+data 922
+# The "postadmin" file is called after the "admin" command finishes
+# processing a directory.
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :10
+data 1105
+# The "postproxy" file is called from a secondary server as soon as
+# the secondary server closes its connection to the primary server.
+# This script might, for example, be used to shut down a dial up
+# or VPN connection to the primary server's network.
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository (currently always ".")
+#    %r = repository (path portion of $CVSROOT)
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :11
+data 1898
+# The "posttag" file is called after the "tag" command finishes
+# processing a directory.
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %b = branch mode = "?" (delete ops - unknown) | "T" (branch)
+#                     | "N" (not branch)
+#    %o = operation = "add" | "mov" | "del"
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#    %t = tagname
+#    %{sVv} = attribute list = file name, old version tag will be deleted
+#             from, new version tag will be added to (or deleted from, but
+#             this feature is deprecated.  When either old or new revision is
+#             unknown, doesn't exist, or isn't applicable, the string "NONE"
+#             will be placed on the command line.
+#
+# Note that %{sVv} is a list operator and not all elements are necessary.
+# Thus %{sV} is a legal format string, but will only be replaced with file
+# name and old revision. it also generates multiple arguments for each file
+# being operated upon.  i.e. if two files, file1 & file2, are having a tag
+# moved from version 1.1 to version 1.1.2.9, %{sVv} will generate the
+# following six arguments in this order:
+# file1, 1.1, 1.1.2.9, file2, 1.1, 1.1.2.9.
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :12
+data 957
+# The "postwatch" file is called after any command finishes writing new
+# file attibute (watch/edit) information in a directory.
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :13
+data 1203
+# The "preproxy" file is called form the secondary server as soon as
+# the secondary server determines that it will be proxying a write
+# command to a primary server and immediately before it opens a
+# connection to the primary server.  This script might, for example, be
+# used to launch a dial up or VPN connection to the primary server's
+# network.
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository (currently always ".")
+#    %r = repository (path portion of $CVSROOT)
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :14
+data 649
+# The "rcsinfo" file is used to control templates with which the editor
+# is invoked on commit and import.
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being made to, relative to the
+# $CVSROOT.  For the first match that is found, then the remainder of the
+# line is the name of the file that contains the template.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :15
+data 2255
+# The "taginfo" file is used to control pre-tag checks.
+# The filter on the right is invoked with the following arguments
+# if no format strings are present:
+#
+# $1 -- tagname
+# $2 -- operation "add" for tag, "mov" for tag -F, and "del" for tag -d
+# $3 -- tagtype "?" on delete, "T" for branch, "N" for static
+# $4 -- repository
+# $5->  file revision [file revision ...]
+#
+# If any format strings are present in the filter, they will be replaced
+# as follows:
+#    %b = branch mode = "?" (delete ops - unknown) | "T" (branch)
+#                     | "N" (not branch)
+#    %o = operation = "add" | "mov" | "del"
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#    %t = tagname
+#    %{sVv} = attribute list = file name, old version tag will be deleted
+#             from, new version tag will be added to (or deleted from, but
+#             this feature is deprecated.  When either old or new revision is
+#             unknown, doesn't exist, or isn't applicable, the string "NONE"
+#             will be placed on the command line.
+#
+# Note that %{sVv} is a list operator and not all elements are necessary.
+# Thus %{sV} is a legal format string, but will only be replaced with file
+# name and old revision. it also generates multiple arguments for each file
+# being operated upon.  i.e. if two files, file1 & file2, are having a tag
+# moved from version 1.1 to version 1.1.2.9, %{sVv} will generate the
+# following six arguments in this order:
+# file1, 1.1, 1.1.2.9, file2, 1.1, 1.1.2.9.
+#
+# A non-zero exit of the filter program will cause the tag to be aborted.
+#
+# The first entry on a line is a regular expression which is tested
+# against the directory that the change is being committed to, relative
+# to the $CVSROOT.  For the first match that is found, then the remainder
+# of the line is the name of the filter to run.
+#
+# If the repository name does not match any of the regular expressions in this
+# file, the "DEFAULT" line is used, if it is specified.
+#
+# If the name "ALL" appears as a regular expression it is always used
+# in addition to the first matching regex or "DEFAULT".
+
+blob
+mark :16
+data 1481
+# The "verifymsg" file is used to allow verification of logging
+# information.  It works best when a template (as specified in the
+# rcsinfo file) is provided for the logging procedure.  Given a
+# template with locations for, a bug-id number, a list of people who
+# reviewed the code before it can be checked in, and an external
+# process to catalog the differences that were code reviewed, the
+# following test can be applied to the code:
+#
+#   Making sure that the entered bug-id number is correct.
+#   Validating that the code that was reviewed is indeed the code being
+#       checked in (using the bug-id number or a seperate review
+#       number to identify this particular code set.).
+#
+# If any of the above test failed, then the commit would be aborted.
+#
+# Format strings present in the filter will be replaced as follows:
+#    %c = canonical name of the command being executed
+#    %R = the name of the referrer, if any, otherwise the value NONE
+#    %p = path relative to repository
+#    %r = repository (path portion of $CVSROOT)
+#    %l = name of log file to be verified.
+#
+# If no format strings are present in the filter, a default " %l" will
+# be appended to the filter, but this usage is deprecated.
+#
+# Actions such as mailing a copy of the report to each reviewer are
+# better handled by an entry in the loginfo file.
+#
+# One thing that should be noted is the the ALL keyword is not
+# supported.  There can be only one entry that matches a given
+# repository.
+
+blob
+mark :17
+data 5471
+<!DOCTYPE html>
+<html ng-app="codeCafe" >
+<head >
+<meta charset="UTF-8">
+<title>Hello There</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script type="text/javascript">
+var app = angular.module('codeCafe',[]);
+app.controller('cafeCtrl', function($scope, $http) {
+	
+	  $http.get("http://hackerearth.0x10.info/api/ctz_coders?type=json&query=list_submissions").then(function (response) {
+	      $scope.myData = response.data.websites;
+	     
+	  });
+	  $scope.myFunction = function() {
+		
+		  var request = window.indexedDB.open("codeCafe",23);
+		  request.onerror = function(event) {
+		  	alert(" something with request.errorCode!"+event.target.errorCode);
+		  	};
+		  	request.onsuccess = function(event) {
+		  	 db = event.target.result;
+		  var objectStore =  db.transaction("submissi").objectStore("submissi");
+		 
+	       var index = objectStore.index("language");
+
+	       index.getAll($scope.search,60).onsuccess = function(event) {
+		       
+	        $scope.myData = event.target.result;
+	       };
+
+	       
+	       
+	    };
+	  };
+	});
+
+
+if(window.indexedDB){
+	alert("sucess");
+}
+
+
+var db;
+var request = window.indexedDB.open("codeCafe",23);
+request.onerror = function(event) {
+	alert(" something with request.errorCode!"+event.target.errorCode);
+	};
+	request.onsuccess = function(event) {
+	 db = event.target.result;
+
+
+		     var xhr = new XMLHttpRequest();
+			    xhr.open('GET', "http://hackerearth.0x10.info/api/ctz_coders?type=json&query=list_submissions", true);
+			    console.log("Blob:");
+			    xhr.responseType="json";
+			    var blob;
+			    xhr.onload = function (evt) {
+			      if (xhr.status == 200) {
+			        console.log("Blob retrieved");
+			        blob = xhr.response;
+			        console.log("Blob:", blob);
+			        var myData = blob;
+				     for(var i in myData.websites){
+				    	 var objectStore =  db.transaction("submissi","readwrite").objectStore("submissi");
+                         objectStore.add(myData.websites[i]);
+
+						     }
+					    
+					     
+				     
+			      } else {
+			        console.error(" error:",
+			        xhr.responseText, xhr.status);
+			      }
+			    };
+			    xhr.send();
+			  
+            
+            
+	};
+
+	request.onupgradeneeded = function(event){
+		alert("oncompleted");
+		 db = event.target.result;
+		 var objectStore = db.createObjectStore("submissi", { keyPath: "id" });
+	     objectStore.createIndex("title","title",{unique:false});
+	     objectStore.createIndex("source","source_code",{unique:false});
+	     objectStore.createIndex("metadata","metadata",{unique:false});
+	     objectStore.createIndex("status","compiler_status",{unique:false});
+	     objectStore.createIndex("language","language",{unique:false});
+	    
+		 objectStore.transaction.oncomplete = function(event) {
+			  // Do something with the request.result!
+			  alert("Transaction completed " + request.result.name);
+              
+
+
+			  
+			};
+
+		}
+			 
+
+	
+</script>
+
+</head>
+<body ng-controller="cafeCtrl">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+   <ol class="breadcrumb">
+     <li><h1>Code Cafe</h1></li>
+     <li><h6>-code hub with stats</h6></li>
+   </ol>
+  </div>
+</nav>
+<div class="panel panel-default">
+  <div class="panel-heading">Panel heading without title</div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+<div class="row">
+<div class="col-sm-8"  >
+<div class="panel panel-default">
+  <div class="panel-heading"  >
+    <h3 class="panel-title">
+      <input type="text" class="form-control" ng-model="search" placeholder="Search based on Title /level/language">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" ng-click="myFunction()">Go!</button>
+      </span>
+    </h3>
+  </div>
+</div>
+
+
+ <div  style="height:370px;overflow:scroll;">
+<div class="panel panel-default" ng-show="{{x.compiler_status}}"  ng-repeat="x in myData" >
+  <div class="panel-heading" >
+    <h3 class="panel-title">{{x.title}}</h3>
+  </div>
+  <div class="panel-body">
+  <ol class="breadcrumb">
+  <li>{{x.compiler_status}}</li>
+  <li>{{x.language}}</li>
+</ol>
+  
+    {{x.source_code}}
+     
+  
+  </div>
+</div>
+</div>
+
+</div>
+
+<div class="col-sm-4">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Filter By Status</h3>
+  </div>
+  <div class="panel-body">
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="Accepted" >Accepted</label>
+    </div>
+    <div class="checkbox">
+      <label><input type="checkbox" ng-model="Skipped"> Skipped</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox" ng-model="Memory">Memory</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox"  ng-model="Runtime">Runtime</label>
+    </div>
+    <div class="checkbox ">
+      <label><input type="checkbox" ng-model="Wrong Answer">Wrong Answer</label>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Statistical Analysis</h3>
+  </div>
+  <div class="panel-body">
+    Panel content
+  </div>
+</div>
+
+</div>
+</div>
+</body>
+</html>
+blob
+mark :18
+data 3385
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title>Hello There</title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1671.1">
+  <style type="text/css">
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li1 {margin: 0.0px 0.0px 14.9px 0.0px; line-height: 22.0px; font: 18.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li2 {margin: 0.0px 0.0px 21.0px 0.0px; line-height: 10.0px; font: 9.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    li.li3 {margin: 0.0px 0.0px 0.0px 0.0px; line-height: 14.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
+    span.s1 {-webkit-text-stroke: 0px #000000}
+    span.s2 {font-kerning: none}
+    span.s3 {font-kerning: none; background-color: #b3b3b3}
+    span.s4 {font: 14.0px Times; font-kerning: none; color: #000000; -webkit-text-stroke: 0px #000000}
+    ol.ol1 {list-style-type: decimal}
+  </style>
+</head>
+<body>
+<ol class="ol1">
+  <li class="li1"><span class="s1"><b></b></span><span class="s2"><b>Code Cafe<br>
+</b></span></li>
+  <li class="li2"><span class="s1"><b></b></span><span class="s2"><b>-code hub with stats<br>
+</b></span></li>
+</ol>
+<p class="p3"><span class="s2">Panel heading without title</span></p>
+<p class="p3"><span class="s2">Panel content<span class="Apple-converted-space"> </span></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 13.0px; font: 11.0px '.SF NS Text'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)"><span class="s3">Go!</span><span class="s4"><b><span class="Apple-converted-space"> </span></b></span></h3>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>{{x.title}}</b></span></h3>
+<ol class="ol1">
+  <li class="li3"><span class="s1"></span><span class="s2">{{x.compiler_status}}</span></li>
+  <li class="li3"><span class="s1"></span><span class="s2">{{x.language}} hey</span></li>
+  <li class="li3"><span class="s2">{{x.source_code}}<span class="Apple-converted-space"> </span></span></li>
+</ol>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>Filter By Status</b></span></h3>
+<p class="p3"><span class="s2">Accepted<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Skipped<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Memory<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Runtime<span class="Apple-converted-space"> </span></span></p>
+<p class="p3"><span class="s2">Wrong Answer<span class="Apple-converted-space"> </span></span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; line-height: 17.0px; font: 14.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s2"><b>Statistical Analysis</b></span></h3>
+<p class="p3"><span class="s2">Panel content<span class="Apple-converted-space"> </span></span></p>
+</body>
+</html>
+
